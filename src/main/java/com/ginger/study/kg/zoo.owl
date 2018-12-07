@@ -1,0 +1,183 @@
+<?xml version="1.0"?>  
+<rdf:RDF  
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"  
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"  
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"  
+    xmlns:owl="http://www.w3.org/2002/07/owl#"  
+    xmlns="http://www.owl-ontologies.com/animal.owl#"  
+  xml:base="http://www.owl-ontologies.com/animal.owl">  
+  <owl:Ontology rdf:about=""/>  
+  <owl:Class rdf:ID="Branch">  
+    <rdfs:subClassOf>  
+      <owl:Class rdf:ID="Plant"/>  
+    </rdfs:subClassOf>  
+    <rdfs:subClassOf>  
+      <owl:Restriction>  
+        <owl:onProperty>  
+          <owl:TransitiveProperty rdf:ID="is_part_of"/>  
+        </owl:onProperty>  
+        <owl:allValuesFrom>  
+          <owl:Class rdf:ID="Tree"/>  
+        </owl:allValuesFrom>  
+      </owl:Restriction>  
+    </rdfs:subClassOf>  
+  </owl:Class>  
+  <owl:Class rdf:ID="Zoo"/>  
+  <owl:Class rdf:about="#Tree">  
+    <rdfs:subClassOf>  
+      <owl:Class rdf:about="#Plant"/>  
+    </rdfs:subClassOf>  
+  </owl:Class>  
+  <owl:Class rdf:ID="Leaf">  
+    <rdfs:subClassOf>  
+      <owl:Class rdf:about="#Plant"/>  
+    </rdfs:subClassOf>  
+    <rdfs:subClassOf>  
+      <owl:Restriction>  
+        <owl:allValuesFrom rdf:resource="#Branch"/>  
+        <owl:onProperty>  
+          <owl:TransitiveProperty rdf:about="#is_part_of"/>  
+        </owl:onProperty>  
+      </owl:Restriction>  
+    </rdfs:subClassOf>  
+  </owl:Class>  
+  <owl:Class rdf:ID="Animal">  
+    <owl:disjointWith>  
+      <owl:Class rdf:about="#Plant"/>  
+    </owl:disjointWith>  
+  </owl:Class>  
+  <owl:Class rdf:ID="Lion">  
+    <rdfs:subClassOf>  
+      <owl:Class rdf:ID="Carnivore"/>  
+    </rdfs:subClassOf>  
+    <rdfs:subClassOf>  
+      <owl:Restriction>  
+        <owl:allValuesFrom>  
+          <owl:Class rdf:ID="Herbivore"/>  
+        </owl:allValuesFrom>  
+        <owl:onProperty>  
+          <owl:ObjectProperty rdf:ID="eat"/>  
+        </owl:onProperty>  
+      </owl:Restriction>  
+    </rdfs:subClassOf>  
+  </owl:Class>  
+  <owl:Class rdf:ID="Giraffe">  
+    <rdfs:subClassOf>  
+      <owl:Class rdf:about="#Herbivore"/>  
+    </rdfs:subClassOf>  
+    <rdfs:subClassOf>  
+      <owl:Restriction>  
+        <owl:onProperty>  
+          <owl:ObjectProperty rdf:about="#eat"/>  
+        </owl:onProperty>  
+        <owl:allValuesFrom rdf:resource="#Leaf"/>  
+      </owl:Restriction>  
+    </rdfs:subClassOf>  
+  </owl:Class>  
+  <owl:Class rdf:about="#Herbivore">  
+    <rdfs:subClassOf rdf:resource="#Animal"/>  
+    <rdfs:subClassOf>  
+      <owl:Restriction>  
+        <owl:allValuesFrom>  
+          <owl:Class rdf:about="#Plant"/>  
+        </owl:allValuesFrom>  
+        <owl:onProperty>  
+          <owl:ObjectProperty rdf:about="#eat"/>  
+        </owl:onProperty>  
+      </owl:Restriction>  
+    </rdfs:subClassOf>  
+  </owl:Class>  
+  <owl:Class rdf:about="#Plant">  
+    <owl:disjointWith rdf:resource="#Animal"/>  
+  </owl:Class>  
+  <owl:Class rdf:about="#Carnivore">  
+    <owl:equivalentClass>  
+      <owl:Class>  
+        <owl:intersectionOf rdf:parseType="Collection">  
+          <owl:Class rdf:about="#Animal"/>  
+          <owl:Restriction>  
+            <owl:allValuesFrom rdf:resource="#Animal"/>  
+            <owl:onProperty>  
+              <owl:ObjectProperty rdf:ID="maineat"/>  
+            </owl:onProperty>  
+          </owl:Restriction>  
+        </owl:intersectionOf>  
+      </owl:Class>  
+    </owl:equivalentClass>  
+  </owl:Class>  
+  <owl:ObjectProperty rdf:ID="inverse_of_eat_13">  
+    <rdfs:subPropertyOf>  
+      <owl:ObjectProperty rdf:ID="eated"/>  
+    </rdfs:subPropertyOf>  
+    <owl:inverseOf>  
+      <owl:ObjectProperty rdf:about="#maineat"/>  
+    </owl:inverseOf>  
+  </owl:ObjectProperty>  
+  <owl:ObjectProperty rdf:about="#eated">  
+    <owl:inverseOf>  
+      <owl:ObjectProperty rdf:about="#eat"/>  
+    </owl:inverseOf>  
+  </owl:ObjectProperty>  
+  <owl:ObjectProperty rdf:about="#maineat">  
+    <owl:inverseOf rdf:resource="#inverse_of_eat_13"/>  
+    <rdfs:subPropertyOf>  
+      <owl:ObjectProperty rdf:about="#eat"/>  
+    </rdfs:subPropertyOf>  
+  </owl:ObjectProperty>  
+  <owl:ObjectProperty rdf:about="#eat">  
+    <owl:inverseOf rdf:resource="#eated"/>  
+  </owl:ObjectProperty>  
+  <owl:ObjectProperty rdf:ID="Belonging">  
+    <rdfs:range rdf:resource="#Zoo"/>  
+    <rdfs:domain rdf:resource="#Animal"/>  
+  </owl:ObjectProperty>  
+  <owl:DatatypeProperty rdf:ID="Tel">  
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>  
+    <rdfs:domain rdf:resource="#Zoo"/>  
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"  
+    >telephone number</rdfs:comment>  
+  </owl:DatatypeProperty>  
+  <owl:DatatypeProperty rdf:ID="Address">  
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>  
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"  
+    >Address</rdfs:comment>  
+    <rdfs:domain rdf:resource="#Zoo"/>  
+  </owl:DatatypeProperty>  
+  <owl:TransitiveProperty rdf:about="#is_part_of">  
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>  
+  </owl:TransitiveProperty>  
+  <Zoo rdf:ID="tianjin">  
+    <Address xml:lang="en">Tianjin road park</Address>  
+    <Tel xml:lang="en">025-1245487</Tel>  
+  </Zoo>  
+  <Giraffe rdf:ID="Lanlan">  
+    <Belonging>  
+      <Zoo rdf:ID="Beijing_Zoo">  
+        <Tel xml:lang="en">010-12345678</Tel>  
+        <Address xml:lang="en">Beijing Xizhimen Road</Address>  
+      </Zoo>  
+    </Belonging>  
+  </Giraffe>  
+  <Giraffe rdf:ID="feifei">  
+    <Belonging rdf:resource="#tianjin"/>  
+  </Giraffe>  
+  <Lion rdf:ID="afei">  
+    <Belonging>  
+      <Zoo rdf:ID="shanghai_zoo">  
+        <Tel xml:lang="en">021-25689255</Tel>  
+        <Address xml:lang="en">shanghai yangpu park</Address>  
+      </Zoo>  
+    </Belonging>  
+  </Lion>  
+  <Lion rdf:ID="jingjing">  
+    <Belonging rdf:resource="#tianjin"/>  
+  </Lion>  
+  <Giraffe rdf:ID="mingming">  
+    <Belonging rdf:resource="#shanghai_zoo"/>  
+  </Giraffe>  
+  <Lion rdf:ID="xiaolan">  
+    <Belonging rdf:resource="#Beijing_Zoo"/>  
+  </Lion>  
+</rdf:RDF>  
+  
+<!-- Created with Protege (with OWL Plugin 3.3.1, Build 430)  http://protege.stanford.edu --> 
